@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ClientController">
+   <children>
+      <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox fx:id="loginScreen" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0">
+               <children>
+                  <Label text="Welcome to the Library.">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Enter username and password:" />
+                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="430.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Username:" />
+                        <Label prefHeight="17.0" prefWidth="175.0" text="Password:" GridPane.rowIndex="1" />
+                        <TextField fx:id="usernameField" GridPane.columnIndex="1" />
+                        <PasswordField fx:id="passwordField" onKeyPressed="#checkLogin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <Label fx:id="warningText" textFill="#e40000" />
+                  <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#viewAccountCreationPage" text="New to The Library? Create an Account" />
+                  <Button fx:id="passwordResetButton" mnemonicParsing="false" onAction="#viewPasswordResetPage" text="Forgot Password? Reset it here" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="mainPage" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <GridPane alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="searchBar" GridPane.columnIndex="1" />
+                        <Label text="The Library">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchCatalog" text="Search" GridPane.columnIndex="2" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Logout" GridPane.columnIndex="3" />
+                     </children>
+                  </GridPane>
+                  <Label text="Recently Added" />
+                  <ListView fx:id="catalogDisplay" onMouseClicked="#getItemPage" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Recently Checked Out Items" />
+                  <ListView fx:id="historyDisplay" onMouseClicked="#getBorrowedItemPage" orientation="HORIZONTAL" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox fx:id="searchPage" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <GridPane alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
+                     <children>
+                        <TextField fx:id="searchBar_S" GridPane.columnIndex="1" />
+                        <Label text="The Library">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="searchButton_S" mnemonicParsing="false" onAction="#searchCatalog" text="Search" GridPane.columnIndex="2" />
+                        <Button fx:id="backButton_S" mnemonicParsing="false" onAction="#backToMainPage_S" text="Back" GridPane.columnIndex="4" />
+                        <ComboBox fx:id="searchFilter" onAction="#filterResults" prefWidth="150.0" promptText="Filter..." GridPane.columnIndex="3" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Label text="Results" />
+                  <ListView fx:id="resultsDisplay" onMouseClicked="#getSearchedItemPage" orientation="HORIZONTAL" prefHeight="303.0" prefWidth="600.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox fx:id="itemPage" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <HBox prefHeight="475.0" prefWidth="600.0" spacing="10.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="400.0" prefWidth="192.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="itemPageBackButton" mnemonicParsing="false" onAction="#backToMainPage" text="Back" />
+                              <ImageView fx:id="bookCover" fitHeight="256.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <HBox alignment="TOP_CENTER" prefHeight="48.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Button fx:id="viewReviewButton" mnemonicParsing="false" onAction="#viewReviewPage" text="View Reviews" />
+                                    <Button fx:id="checkoutButton" mnemonicParsing="false" onAction="#checkoutItem" text="Checkout" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <Label fx:id="checkoutWarningText" textFill="RED" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <GridPane prefHeight="400.0" prefWidth="403.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="72.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="298.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Type" />
+                              <Label text="Title" GridPane.rowIndex="1" />
+                              <Label text="Author(s)" GridPane.rowIndex="2" />
+                              <Label fx:id="typeText" text="Type Here" GridPane.columnIndex="1" />
+                              <Label fx:id="titleText" text="Title Here" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="authorsText" text="Authors Here" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Description" GridPane.rowIndex="3" />
+                              <Label fx:id="descriptionText" text="Description Here" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="accountCreationPage" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#checkLogin" prefHeight="400.0" prefWidth="600.0" spacing="10.0" visible="false">
+               <children>
+                  <Label text="Enter your preferred username and password: " />
+                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="430.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Set Username:" />
+                        <Label prefHeight="17.0" prefWidth="175.0" text="Set Password:" GridPane.rowIndex="1" />
+                        <TextField fx:id="setUsername" GridPane.columnIndex="1" />
+                        <TextField fx:id="setPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="createAccountButton1" mnemonicParsing="false" onAction="#createAccount" text="Create Account" GridPane.columnIndex="1" />
+                        <Button fx:id="accountCreationBackButton" mnemonicParsing="false" onAction="#backToLogin" text="Back" />
+                     </children>
+                  </GridPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="passwordResetPage" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#checkLogin" prefHeight="400.0" prefWidth="600.0" spacing="10.0" visible="false">
+               <children>
+                  <Label text="Reset Password">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <GridPane alignment="CENTER" prefHeight="91.0" prefWidth="560.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Enter Username:" />
+                        <Label prefHeight="17.0" prefWidth="175.0" text="Enter New Password:" GridPane.rowIndex="1" />
+                        <TextField fx:id="getUsername" GridPane.columnIndex="1" />
+                        <TextField fx:id="newPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="confirmNewPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Confirm Password:" GridPane.rowIndex="2" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <GridPane>
+                     <children>
+                        <Button fx:id="resetPasswordButton" mnemonicParsing="false" onAction="#resetPassword" text="Reset Password" GridPane.columnIndex="1" />
+                        <Button fx:id="passwordResetBackButton" mnemonicParsing="false" onAction="#backToLoginReset" text="Back" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Label fx:id="passwordResetWarningText" textFill="RED" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="reviewPage" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="129.73673248291016" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="539.0" minWidth="10.0" prefWidth="450.26326751708984" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="back_reviewPage" mnemonicParsing="false" onAction="#backToItemPage" prefHeight="27.0" prefWidth="94.0" text="Back" />
+                        <Label fx:id="reviewPageTitle" prefHeight="29.0" prefWidth="462.0" text="Recent Reviews for " GridPane.columnIndex="1">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <ListView fx:id="reviewDisplay" prefHeight="240.0" prefWidth="600.0" />
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Leave a Review: ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="review" prefHeight="80.0" prefWidth="368.0" />
+                        <Button fx:id="sendReviewButton" mnemonicParsing="false" onAction="#sendReview" text="Send" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</VBox>
